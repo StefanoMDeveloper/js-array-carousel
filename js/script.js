@@ -37,32 +37,59 @@ for (let i = 0; i < items.length; i++) {
     </div>`;
 }
 
+
 const itemContainer = document.querySelector('.item-container');
 itemContainer.innerHTML = itemContent;
 
 let itemActive = document.getElementById('item-'+elementActive);
 itemActive.classList.add('active');
 
+let itemContent2 = '';
+
+for (let i = 0; i < items.length; i++) {
+    itemContent2 += `
+        <div class="opaco ciao" id="vertical-${i}">
+            <img src="${items[i]}">
+        </div>`;
+}
+
+
+const verticalImg = document.querySelector('.vertical-img');
+verticalImg.innerHTML = itemContent2;
+
+let verticalActive = document.getElementById('vertical-'+elementActive);
+verticalActive.classList.remove('opaco');
+
 const prev = document.querySelector('.prev');
 const next = document.querySelector('.next');
 
 prev.addEventListener('click', function(){
-    elementActive--;
-    if (elementActive == -1) {
-        elementActive = items.length;
+    if (elementActive == 0)  {
+        elementActive = items.length-1;
+    }else{
+        elementActive--;
     }
     itemActive.classList.remove('active');
+    verticalActive.classList.add('opaco');
     itemActive = document.getElementById('item-'+elementActive);
+    verticalActive = document.getElementById('vertical-'+elementActive);
     itemActive.classList.add('active');
+    verticalActive.classList.remove('opaco');
     
 });
 
 next.addEventListener('click', function(){
-    elementActive++;
-    if (elementActive == items.length+1) {
+    if (elementActive == items.length-1) {
         elementActive = 0;
+    }else{
+        elementActive++;
     }
+
     itemActive.classList.remove('active');
+    verticalActive.classList.add('opaco');
     itemActive = document.getElementById('item-'+elementActive);
+    verticalActive = document.getElementById('vertical-'+elementActive);
     itemActive.classList.add('active');
+    verticalActive.classList.remove('opaco');
 });
+
